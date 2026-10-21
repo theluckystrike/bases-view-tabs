@@ -1,0 +1,255 @@
+{
+ "slug": "bases-view-tabs",
+ "module": "products/bases-view-tabs/src/model.ts",
+ "function": "tabModel",
+ "cases": [
+  {
+   "name": "all views are free in file order",
+   "args": [
+    "views:\n  - type: table\n    name: All tasks\n  - type: cards\n    name: In progress\n  - type: table\n    name: Done\n"
+   ],
+   "expected": [
+    {
+     "name": "All tasks",
+     "type": "table",
+     "active": true,
+     "pinned": false,
+     "icon": ""
+    },
+    {
+     "name": "In progress",
+     "type": "cards",
+     "active": false,
+     "pinned": false,
+     "icon": ""
+    },
+    {
+     "name": "Done",
+     "type": "table",
+     "active": false,
+     "pinned": false,
+     "icon": ""
+    }
+   ]
+  },
+  {
+   "name": "active view matches the exact name",
+   "args": [
+    "views:\n  - type: table\n    name: All tasks\n  - type: cards\n    name: In progress\n  - type: table\n    name: Done\n",
+    "In progress"
+   ],
+   "expected": [
+    {
+     "name": "All tasks",
+     "type": "table",
+     "active": false,
+     "pinned": false,
+     "icon": ""
+    },
+    {
+     "name": "In progress",
+     "type": "cards",
+     "active": true,
+     "pinned": false,
+     "icon": ""
+    },
+    {
+     "name": "Done",
+     "type": "table",
+     "active": false,
+     "pinned": false,
+     "icon": ""
+    }
+   ]
+  },
+  {
+   "name": "missing active name falls back to first",
+   "args": [
+    "views:\n  - type: table\n    name: All tasks\n  - type: cards\n    name: In progress\n  - type: table\n    name: Done\n",
+    "Removed"
+   ],
+   "expected": [
+    {
+     "name": "All tasks",
+     "type": "table",
+     "active": true,
+     "pinned": false,
+     "icon": ""
+    },
+    {
+     "name": "In progress",
+     "type": "cards",
+     "active": false,
+     "pinned": false,
+     "icon": ""
+    },
+    {
+     "name": "Done",
+     "type": "table",
+     "active": false,
+     "pinned": false,
+     "icon": ""
+    }
+   ]
+  },
+  {
+   "name": "Pro pins first without hiding other views",
+   "args": [
+    "views:\n  - type: table\n    name: All tasks\n  - type: cards\n    name: In progress\n  - type: table\n    name: Done\n",
+    "In progress",
+    {
+     "wrap": false,
+     "appearances": {
+      "[\"Tasks.base\",\"Done\"]": {
+       "pinned": true,
+       "icon": "star"
+      }
+     }
+    },
+    "Tasks.base",
+    true
+   ],
+   "expected": [
+    {
+     "name": "Done",
+     "type": "table",
+     "active": false,
+     "pinned": true,
+     "icon": "star"
+    },
+    {
+     "name": "All tasks",
+     "type": "table",
+     "active": false,
+     "pinned": false,
+     "icon": ""
+    },
+    {
+     "name": "In progress",
+     "type": "cards",
+     "active": true,
+     "pinned": false,
+     "icon": ""
+    }
+   ]
+  },
+  {
+   "name": "expired Pro keeps every view and ignores appearance",
+   "args": [
+    "views:\n  - type: table\n    name: All tasks\n  - type: cards\n    name: In progress\n  - type: table\n    name: Done\n",
+    "Done",
+    {
+     "wrap": false,
+     "appearances": {
+      "[\"Tasks.base\",\"Done\"]": {
+       "pinned": true,
+       "icon": "star"
+      }
+     }
+    },
+    "Tasks.base",
+    false
+   ],
+   "expected": [
+    {
+     "name": "All tasks",
+     "type": "table",
+     "active": false,
+     "pinned": false,
+     "icon": ""
+    },
+    {
+     "name": "In progress",
+     "type": "cards",
+     "active": false,
+     "pinned": false,
+     "icon": ""
+    },
+    {
+     "name": "Done",
+     "type": "table",
+     "active": true,
+     "pinned": false,
+     "icon": ""
+    }
+   ]
+  },
+  {
+   "name": "invalid YAML leaves native selection available",
+   "args": [
+    "views: ["
+   ],
+   "expected": []
+  },
+  {
+   "name": "duplicate names cannot select the wrong view",
+   "args": [
+    "views: [{name: Same, type: table}, {name: Same, type: cards}]"
+   ],
+   "expected": []
+  },
+  {
+   "name": "view labels are literal text",
+   "args": [
+    "views: [{name: \"<b>R&D</b>\", type: table}]"
+   ],
+   "expected": [
+    {
+     "name": "<b>R&D</b>",
+     "type": "table",
+     "active": true,
+     "pinned": false,
+     "icon": ""
+    }
+   ]
+  },
+  {
+   "name": "different bases do not share appearances",
+   "args": [
+    "views:\n  - type: table\n    name: All tasks\n  - type: cards\n    name: In progress\n  - type: table\n    name: Done\n",
+    "",
+    {
+     "wrap": false,
+     "appearances": {
+      "[\"Tasks.base\",\"Done\"]": {
+       "pinned": true,
+       "icon": "star"
+      }
+     }
+    },
+    "Other.base",
+    true
+   ],
+   "expected": [
+    {
+     "name": "All tasks",
+     "type": "table",
+     "active": true,
+     "pinned": false,
+     "icon": ""
+    },
+    {
+     "name": "In progress",
+     "type": "cards",
+     "active": false,
+     "pinned": false,
+     "icon": ""
+    },
+    {
+     "name": "Done",
+     "type": "table",
+     "active": false,
+     "pinned": false,
+     "icon": ""
+    }
+   ]
+  },
+  {
+   "name": "empty base has no phantom views",
+   "args": [
+    "filters: file.hasTag(\"task\")"
+   ],
+   "expected": []
+  }
+ ]
+}

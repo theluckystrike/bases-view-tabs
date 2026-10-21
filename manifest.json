@@ -1,0 +1,11 @@
+{
+	"id": "bases-view-tabs",
+	"name": "Bases View Tabs",
+	"version": "1.1.0",
+	"minAppVersion": "1.13.4",
+	"description": "Switch between Base views from a visible tab strip with keyboard navigation.",
+	"author": "Michael Lip",
+	"authorUrl": "https://github.com/theluckystrike",
+	"fundingUrl": "https://github.com/sponsors/theluckystrike",
+	"isDesktopOnly": false
+}

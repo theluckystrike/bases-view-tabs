@@ -1,0 +1,41 @@
+.notemods-bases-controls { flex-shrink: 0; }
+
+.bvt-strip {
+ display: flex;
+ flex-shrink: 0;
+ gap: var(--size-4-1);
+ padding: var(--size-4-2);
+ border-bottom: var(--border-width) solid var(--background-modifier-border);
+ overflow-x: auto;
+}
+
+.bvt-strip[hidden] { display: none; }
+.bvt-strip.bvt-wrap { flex-wrap: wrap; }
+
+.bvt-strip .bvt-tab {
+ display: flex;
+ flex-shrink: 0;
+ align-items: center;
+ gap: var(--size-4-1);
+ color: var(--text-muted);
+ background: var(--background-secondary);
+ box-shadow: none;
+ white-space: nowrap;
+}
+
+.bvt-strip .bvt-tab[aria-selected="true"] {
+ color: var(--text-on-accent);
+ background: var(--interactive-accent);
+}
+
+.bvt-strip .bvt-tab:focus-visible {
+ outline: 2px solid var(--interactive-accent);
+ outline-offset: 2px;
+}
+
+.bvt-icon { display: inline-flex; }
+
+.bvt-icon svg {
+ width: var(--icon-s);
+ height: var(--icon-s);
+}

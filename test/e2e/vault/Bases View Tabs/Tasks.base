@@ -1,0 +1,26 @@
+filters:
+  and:
+    - file.inFolder("Bases View Tabs/Tasks")
+views:
+  - type: table
+    name: All tasks
+    order:
+      - file.name
+      - status
+      - project
+  - type: table
+    name: In progress
+    filters:
+      and:
+        - status == "doing"
+    order:
+      - file.name
+      - status
+  - type: table
+    name: Done
+    filters:
+      and:
+        - status == "done"
+    order:
+      - file.name
+      - status

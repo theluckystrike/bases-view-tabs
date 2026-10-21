@@ -1,0 +1,29 @@
+filters: file.inFolder("Bases View Tabs/Tasks")
+views:
+  - type: table
+    name: All tasks for the weekly review
+    order: [file.name, status]
+  - type: table
+    name: Current work in progress
+    order: [file.name, status]
+  - type: table
+    name: Finished tasks and decisions
+    order: [file.name, status]
+  - type: table
+    name: Tasks waiting for a response
+    order: [file.name, status]
+  - type: table
+    name: Notes to review next week
+    order: [file.name, status]
+  - type: table
+    name: Release preparation checklist
+    order: [file.name, status]
+  - type: table
+    name: Follow up after the project review
+    order: [file.name, status]
+  - type: table
+    name: Archive candidates for this month
+    order: [file.name, status]
+  - type: table
+    name: Next actions for the release team
+    order: [file.name, status]

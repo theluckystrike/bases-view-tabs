@@ -1,0 +1,53 @@
+[
+  {
+    "feature": "view-tabs",
+    "caption": "All three saved views are visible in the free tab strip.",
+    "note": "Tasks.base",
+    "eval": "await (async () => { await new Promise(r => setTimeout(r, 900)); const el = document.querySelector('.workspace-leaf.mod-active .bvt-strip'); if (!el || el.querySelectorAll('button').length !== 3) throw new Error('Expected three free view tabs'); [...el.querySelectorAll('button')].find(b => b.dataset.view === \"All tasks\").click(); await new Promise(r => setTimeout(r, 900)); if (document.querySelectorAll('.workspace-leaf.mod-active .bases-tbody .bases-tr').length !== 6) throw new Error('Expected six tasks'); return 'free tabs PASS'; })()"
+  },
+  {
+    "feature": "keyboard",
+    "caption": "Arrow keys move focus before Enter or Space selects a view.",
+    "note": "Tasks.base",
+    "eval": "await (async () => { await new Promise(r => setTimeout(r, 900)); const el = document.querySelector('.workspace-leaf.mod-active .bvt-strip'); if (!el || el.querySelectorAll('button').length !== 3) throw new Error('Expected three free view tabs'); [...el.querySelectorAll('button')].find(b => b.dataset.view === \"All tasks\").click(); await new Promise(r => setTimeout(r, 900)); app.commands.executeCommandById('bases-view-tabs:focus-view-tabs'); document.activeElement.dispatchEvent(new KeyboardEvent('keydown', {key:'End',bubbles:true,cancelable:true})); if (document.activeElement.dataset.view !== 'Done') throw new Error('End did not focus Done'); return 'keyboard PASS'; })()"
+  },
+  {
+    "feature": "wrap-tabs",
+    "caption": "The free wrapping option keeps long view names readable on multiple lines.",
+    "note": "Many.base",
+    "eval": "await (async () => { const p=app.plugins.plugins['bases-view-tabs']; p.settings.wrap=true; p.refresh(); await new Promise(r=>setTimeout(r,1000)); const strip=document.querySelector('.workspace-leaf.mod-active .bvt-wrap'); if(!strip) throw new Error('Wrap is off'); const rows=new Set([...strip.querySelectorAll('button')].map(b=>Math.round(b.getBoundingClientRect().top))); if(rows.size<2) throw new Error('Expected multiple rows of wrapped tabs'); return 'wrap PASS'; })()",
+    "after": "app.plugins.plugins['bases-view-tabs'].settings.wrap=false; app.plugins.plugins['bases-view-tabs'].refresh(); 'ok'"
+  },
+  {
+    "feature": "pro-appearance",
+    "caption": "Pro pins Done first and adds a star icon. This capture uses a local QA entitlement, without a payment or network request.",
+    "note": "Tasks.base",
+    "eval": "await (async () => { const p=app.plugins.plugins['bases-view-tabs']; p.__qaIsPro=p.pro.isPro; p.pro.isPro=()=>true; const file=app.workspace.getActiveFile(); await p.customize(file.path,'Done',{pinned:true,icon:'star'}); await new Promise(r=>setTimeout(r,900)); const first=document.querySelector('.workspace-leaf.mod-active .bvt-tab'); if(first?.dataset.view!=='Done'||first.querySelectorAll('.bvt-icon svg').length!==2) throw new Error('Expected pinned Done with star'); return 'Pro appearance PASS (QA entitlement)'; })()",
+    "after": "await (async()=>{const p=app.plugins.plugins['bases-view-tabs']; p.pro.isPro=p.__qaIsPro; delete p.__qaIsPro; p.settings.appearances={}; await p.saveSettings(); p.refresh(); return 'reset';})()"
+  },
+  {
+    "feature": "settings",
+    "caption": "Free wrapping and optional GitHub Sponsors sign in.",
+    "eval": "app.setting.open(); app.setting.openTabById('bases-view-tabs'); 'ok'",
+    "after": "app.setting.close(); 'ok'"
+  },
+  {
+    "feature": "bases-view-tabs",
+    "caption": "Select saved views without opening the dropdown.",
+    "frames": [
+      {
+        "note": "Tasks.base",
+        "eval": "await (async () => { await new Promise(r => setTimeout(r, 900)); const el = document.querySelector('.workspace-leaf.mod-active .bvt-strip'); if (!el || el.querySelectorAll('button').length !== 3) throw new Error('Expected three free view tabs'); [...el.querySelectorAll('button')].find(b => b.dataset.view === \"All tasks\").click(); await new Promise(r => setTimeout(r, 900)); return 'All tasks'; })()",
+        "hold": 1400
+      },
+      {
+        "eval": "await (async () => { const el = document.querySelector('.workspace-leaf.mod-active .bvt-strip'); if (!el || el.querySelectorAll('button').length !== 3) throw new Error('Expected three free view tabs'); const file=app.vault.getAbstractFileByPath('Bases View Tabs/Tasks.base'); const before=await app.vault.cachedRead(file); [...el.querySelectorAll('button')].find(b => b.dataset.view === \"In progress\").click(); await new Promise(r => setTimeout(r, 900)); if(document.querySelectorAll('.workspace-leaf.mod-active .bases-tbody .bases-tr').length!==2) throw new Error('Wrong rows after view switch'); if(await app.vault.cachedRead(file)!==before) throw new Error('Base file changed'); return 'In progress PASS'; })()",
+        "hold": 1400
+      },
+      {
+        "eval": "await (async () => { const el = document.querySelector('.workspace-leaf.mod-active .bvt-strip'); if (!el || el.querySelectorAll('button').length !== 3) throw new Error('Expected three free view tabs'); [...el.querySelectorAll('button')].find(b => b.dataset.view === \"Done\").click(); await new Promise(r => setTimeout(r, 900)); if(el.querySelector('[aria-selected=true]').dataset.view!=='Done') throw new Error('Selection not updated'); return 'Done PASS'; })()",
+        "hold": 1400
+      }
+    ]
+  }
+]
