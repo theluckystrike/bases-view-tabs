@@ -40,7 +40,7 @@ Choose a table, list, calendar, columns, star, checks or briefcase icon, or choo
 
 ## Install
 
-When this product is listed, open Settings, Community plugins, Browse, and search for Bases View Tabs. Install it, then enable it. Enable the Bases core plugin too.
+Open Settings, Community plugins, Browse, and search for Bases View Tabs. Install it, then enable it. Enable the Bases core plugin too.
 
 For a manual installation, put the release files `main.js`, `manifest.json` and `styles.css` in `<vault>/.obsidian/plugins/bases-view-tabs/`. Reload the community plugin list and enable the plugin. It needs Obsidian 1.13.4 or newer. This repository contains the source and tests; a source archive alone is not an installed build.
 
@@ -53,6 +53,8 @@ For example, give a task Base three views: All tasks, In progress and Done. Set 
 <img src="https://raw.githubusercontent.com/theluckystrike/bases-view-tabs/HEAD/docs/bases-view-tabs.gif" alt="Switching from All tasks to In progress and Done changes the task rows" width="720">
 
 ## Settings
+
+After a minor or major update, this plugin opens one What's new tab in the background. The tab and settings card suggest other NoteMods plugins and Zovo Chat and link to notemods.com for feedback ([privacy](https://notemods.com/privacy/)). The tab sends no data. Turn the tab off in Settings.
 
 <img src="https://raw.githubusercontent.com/theluckystrike/bases-view-tabs/HEAD/docs/settings.png" alt="Free wrapping and optional GitHub Sponsors settings" width="720">
 

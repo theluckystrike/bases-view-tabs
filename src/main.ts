@@ -5,6 +5,8 @@ import { DEFAULT_SETTINGS, normalizeSettings, movePreferences, preferenceKey, ty
 import { BasesViewTabsSettingTab } from './settings';
 import { SPONSORS } from './pro';
 import { TabStrip } from './strip';
+import { setupHello } from './hello/index';
+import WHATS_NEW from './whats-new.json';
 
 export default class BasesViewTabsPlugin extends Plugin {
  settings: TabSettings = { ...DEFAULT_SETTINGS, appearances: {} };
@@ -15,6 +17,8 @@ export default class BasesViewTabsPlugin extends Plugin {
  private settingTab: BasesViewTabsSettingTab | null = null;
 
  async onload(): Promise<void> {
+   // First: "What's new" reads its state before the settings load (packages/hello). It does not wait.
+   setupHello(this, WHATS_NEW);
   await this.loadSettings();
   this.pro = createGitHubSponsors(this.app, this.manifest.id, SPONSORS, this);
   this.pro.init();

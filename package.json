@@ -1,6 +1,6 @@
 {
 	"name": "bases-view-tabs",
-	"version": "1.1.0",
+	"version": "1.2.0",
 	"private": true,
 	"description": "Switch between Base views from a visible tab strip with keyboard navigation.",
 	"main": "main.js",
