@@ -1,5 +1,6 @@
 {
 	"name": "bases-view-tabs",
+	"repository": {"type": "git", "url": "theluckystrike/bases-view-tabs.git"},
 	"version": "1.2.0",
 	"private": true,
 	"description": "Switch between Base views from a visible tab strip with keyboard navigation.",
