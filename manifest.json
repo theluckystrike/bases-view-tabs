@@ -1,7 +1,7 @@
 {
 	"id": "bases-view-tabs",
 	"name": "Bases View Tabs",
-	"version": "1.2.0",
+	"version": "1.2.1",
 	"minAppVersion": "1.13.4",
 	"description": "Switch between Base views from a visible tab strip with keyboard navigation.",
 	"author": "Michael Lip",

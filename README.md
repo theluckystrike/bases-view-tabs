@@ -34,7 +34,7 @@ Colors come from theme variables, in light and dark mode. If you keep the same B
 
 <img src="https://raw.githubusercontent.com/theluckystrike/bases-view-tabs/HEAD/docs/pro-appearance.png" alt="Pinned Done view with a star icon before the other task views" width="720">
 
-With Pro active, right-click a tab to pin or unpin it and choose an icon. Pins move to the beginning of the strip. Pinned names keep their original relative order, followed by the remaining views. Pinning does not hide a view, and it does not pin an Obsidian workspace tab.
+With Pro active, right-click a tab to pin or unpin it and choose an icon. Pins move to the beginning of the strip. Pinned names keep their original relative order, followed by the remaining views. Pinning does not hide a view, and it does not pin an Obsidian workspace tab. Without Pro, these menu items show a Sponsor on GitHub notice and save nothing.
 
 Choose a table, list, calendar, columns, star, checks or briefcase icon, or choose No icon. Preferences belong to the Base path and view name. Two Bases with a view called Done can have different appearances.
 

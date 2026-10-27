@@ -1,5 +1,6 @@
 import { Component, Menu, Notice, setIcon, setTooltip, type TFile, type WorkspaceLeaf } from 'obsidian';
-import { ICONS, keyTarget, planTabs, readViews, type TabInfo } from './model';
+import { ICONS, keyTarget, planTabs, readViews, type Appearance, type TabInfo } from './model';
+import { PRO_LEAD, proNotice } from './pro';
 import type BasesViewTabsPlugin from './main';
 
 /** Core DOM attachment is isolated here; switching uses WorkspaceLeaf.setViewState. */
@@ -146,8 +147,13 @@ export class TabStrip extends Component {
   this.openMenu = menu;
   menu.onHide(() => { if (this.openMenu === menu) this.openMenu = null; });
   const pro = this.owner.pro?.isPro() ?? false;
-  menu.addItem((item) => item.setTitle(tab.pinned ? 'Unpin view' : pro ? 'Pin view' : 'Pin view (Pro)').setIcon('pin').setDisabled(!pro).onClick(() => this.owner.customize(this.file.path, tab.name, { pinned: !tab.pinned })));
-  for (const icon of ICONS) menu.addItem((item) => item.setTitle(icon ? `Icon: ${icon}` : 'No icon').setChecked(tab.icon === icon).setDisabled(!pro).onClick(() => this.owner.customize(this.file.path, tab.name, { icon })));
+  // A free user can select the Pro items. The select shows the Pro notice and saves nothing.
+  const customize = async (change: Partial<Appearance>): Promise<void> => {
+   if (!this.owner.pro?.isPro()) { proNotice(this.owner.pro, PRO_LEAD); return; }
+   await this.owner.customize(this.file.path, tab.name, change);
+  };
+  menu.addItem((item) => item.setTitle(tab.pinned ? 'Unpin view' : pro ? 'Pin view' : 'Pin view (Pro)').setIcon('pin').onClick(() => customize({ pinned: !tab.pinned })));
+  for (const icon of ICONS) menu.addItem((item) => item.setTitle(icon ? `Icon: ${icon}` : 'No icon').setChecked(tab.icon === icon).onClick(() => customize({ icon })));
   return menu;
  }
 

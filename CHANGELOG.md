@@ -1,5 +1,11 @@
 # bases-view-tabs
 
+## 1.2.1
+
+### Patch Changes
+
+- 6e62806: Pin view (Pro) and the icon items of the tab menu can now be selected without Pro. They show how to get Pro, with a Sponsor on GitHub button, and save nothing.
+
 ## 1.2.0
 
 ### Minor Changes
