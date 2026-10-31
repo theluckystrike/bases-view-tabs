@@ -2,6 +2,12 @@
 
 See the saved views of a Base in a tab strip under its toolbar. Select a name to change views in one click. Keep the view names in sight while you compare open tasks, finished work or different layouts of the same notes.
 
+## Quick start
+
+1. Open an existing `.base` file. If it has saved views, their names appear under the toolbar.
+2. Add and configure views through the native view menu, then use the strip for daily navigation.
+3. Select one name to change the active view.
+
 ## Features
 
 ### Select a view in one click
@@ -92,7 +98,7 @@ Check that Bases is enabled and that you opened a `.base` file with named views.
 
 The core features are free. Pro features need a GitHub Sponsors sponsorship of theluckystrike: $5 a month or more, or $15 once. A total payment of $15 meets the payment requirement for Pro without further payment. Sign-in and the checks below still apply. Your notes stay readable and editable with or without Pro.
 
-GitHub handles the payment. Sponsor at https://github.com/sponsors/theluckystrike. You need no account for the free features. Pro needs the GitHub account that sponsors.
+GitHub handles the payment. Sponsor at https://github.com/sponsors/theluckystrike?frequency=one-time&metadata_source=bases-view-tabs. You need no account for the free features. Pro needs the GitHub account that sponsors.
 
 Until you select "Sign in with GitHub" in the settings, Bases View Tabs makes no network requests. Sign in uses the GitHub device flow. Bases View Tabs sends its public client ID and the scope `read:user` to `https://github.com/login/device/code` and shows you a code. While you enter the code at https://github.com/login/device, it asks `https://github.com/login/oauth/access_token` every few seconds to check the sign-in status. The scope permits profile reads only. GitHub needs this access to show the sponsorship tier. It grants no repository scope and no write access.
 
