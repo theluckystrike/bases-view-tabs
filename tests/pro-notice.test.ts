@@ -9,7 +9,7 @@ import manifest from '../manifest.json';
 
 // A free user can select Pin view (Pro) and the icon items of the tab menu. The select shows the shared Pro notice
 // with the "Sponsor on GitHub" button and saves nothing. A Pro user pins the view and sets the icon as before.
-const PITCH = 'Sponsor on GitHub, then sign in from the plugin settings.';
+const PITCH = 'One payment turns on Pro in every NoteMods plugin. Sponsor on GitHub, then sign in from the plugin settings.';
 const LEAD = 'Pinned views and view icons need Pro.';
 const cleanup: TabStrip[] = [];
 

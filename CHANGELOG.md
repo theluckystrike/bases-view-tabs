@@ -1,5 +1,11 @@
 # bases-view-tabs
 
+## 1.3.0
+
+### Minor Changes
+
+- Each base now opens in the view that you selected last. A link to a different view still opens that view. Turn off Remember the last view in Settings to open the first view again. This feature is free.
+
 ## 1.2.1
 
 ### Patch Changes

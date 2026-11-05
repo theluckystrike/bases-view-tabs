@@ -32,21 +32,21 @@ describe('keyboard navigation', () => {
 });
 
 describe('appearance persistence', () => {
- it.each([null, undefined, 5, [], {wrap: 'true'}, {appearances: []}])('repairs malformed settings %j', (raw) => expect(normalizeSettings(raw)).toEqual({wrap: false, appearances: {}}));
+ it.each([null, undefined, 5, [], {wrap: 'true'}, {appearances: []}])('repairs malformed settings %j', (raw) => expect(normalizeSettings(raw)).toEqual({wrap: false, rememberView: true, appearances: {}, lastViews: {}}));
  it('keeps valid wrap and sanitizes individual entries', () => {
   const key = preferenceKey('A.base', 'All');
-  expect(normalizeSettings({wrap: true, appearances: {bad: {}, '[1,2]': {}, [key]: {pinned: 'yes', icon: 'script'}}})).toEqual({wrap: true, appearances: {[key]: {pinned: false, icon: ''}}});
+  expect(normalizeSettings({wrap: true, appearances: {bad: {}, '[1,2]': {}, [key]: {pinned: 'yes', icon: 'script'}}})).toEqual({wrap: true, rememberView: true, appearances: {[key]: {pinned: false, icon: ''}}, lastViews: {}});
  });
  it('separates paths and names that contain slashes', () => expect(preferenceKey('A/base', 'C')).not.toBe(preferenceKey('A', 'base/C')));
  it('moves preferences with a folder and leaves other paths intact', () => {
   const style = {pinned: true, icon: 'star'};
-  const settings = {wrap: true, appearances: {[preferenceKey('Old/A.base', 'All')]: style, [preferenceKey('Older/B.base', 'All')]: style}};
+  const settings = {wrap: true, rememberView: true, lastViews: {}, appearances: {[preferenceKey('Old/A.base', 'All')]: style, [preferenceKey('Older/B.base', 'All')]: style}};
   expect(movePreferences(settings, 'Old', 'New').appearances).toEqual({[preferenceKey('New/A.base', 'All')]: style, [preferenceKey('Older/B.base', 'All')]: style});
   expect(settings.appearances).toHaveProperty(preferenceKey('Old/A.base', 'All'));
  });
  it('moves a single base preference', () => {
   const style = {pinned: true, icon: ''};
-  expect(movePreferences({wrap: false, appearances: {[preferenceKey('A.base', 'All')]: style}}, 'A.base', 'B.base').appearances).toEqual({[preferenceKey('B.base', 'All')]: style});
+  expect(movePreferences({wrap: false, rememberView: true, lastViews: {}, appearances: {[preferenceKey('A.base', 'All')]: style}}, 'A.base', 'B.base').appearances).toEqual({[preferenceKey('B.base', 'All')]: style});
  });
  it('keeps the order of multiple pins and never mutates view input', () => {
   const views = [{name: 'A',type:'table'},{name:'B',type:'cards'},{name:'C',type:'table'}];

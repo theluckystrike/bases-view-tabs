@@ -36,7 +36,7 @@ describe('plugin preferences and Pro boundaries', () => {
   // Load real child components without starting the Sponsors service in this focused test.
   vi.spyOn(p,'addChild').mockImplementation((child) => { child.load(); return child; });
   p.scan(); await new Promise(r=>setTimeout(r,0));
-  expect(observe).toHaveBeenCalledWith(container,{childList:true,subtree:true});
+  expect(observe).toHaveBeenCalledWith(container,{childList:true,subtree:true,attributes:true,attributeFilter:['data-view-name']});
   expect(observe).toHaveBeenCalledTimes(1);
   expect(document.querySelector('.bvt-strip')).not.toBeNull();
   leaves.mockReturnValue([]); p.scan();

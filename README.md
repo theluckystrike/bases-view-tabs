@@ -16,9 +16,9 @@ See the saved views of a Base in a tab strip under its toolbar. Select a name to
 
 All view tabs, switching, keyboard navigation and wrapping are free, with no view limit. Pro adds pinned views and per-view icons for [$15 one time](https://github.com/sponsors/theluckystrike/sponsorships?tier_id=666162&metadata_source=bases-view-tabs) or [$5 a month](https://github.com/sponsors/theluckystrike?metadata_source=bases-view-tabs). The free version needs no account.
 
-Each saved view gets a tab, in the order written in your Base. Select Done to see that view's rows, filters, sort order and columns. Select All tasks to return. The plugin selects an existing view; it does not build a second table or make a copy of the Base.
+Each saved view gets a tab, in the order written in your Base. Select Done to see that view's rows, filters, sort order and columns. The plugin does not copy the Base.
 
-The selected name uses your theme's accent color. Empty or invalid view lists have no strip. The original view menu stays available for creating, renaming and configuring views, so these controls remain in their usual place.
+The selected name uses your theme's accent color. Empty or invalid view lists have no strip. The view menu stays in its usual place.
 
 ### Keyboard navigation
 
@@ -32,7 +32,7 @@ Navigation wraps at either end. Arrow direction follows right-to-left interfaces
 
 <img src="https://raw.githubusercontent.com/theluckystrike/bases-view-tabs/HEAD/docs/wrap-tabs.png" alt="Long view names wrap onto another line with Wrap tabs enabled" width="720">
 
-By default, the strip scrolls horizontally when names do not fit. Turn on Wrap tabs to use more than one line instead. This option is free and applies to all open Base panes. It changes the strip, while the table keeps its normal scrolling behavior.
+By default, the strip scrolls horizontally when names do not fit. Turn on Wrap tabs to use more than one line instead. This option is free.
 
 Colors come from theme variables, in light and dark mode. If you keep the same Base in two panes, each pane keeps its own selected view. Selecting a tab in one pane does not switch the other pane to match.
 
@@ -52,9 +52,7 @@ For a manual installation, put the release files `main.js`, `manifest.json` and 
 
 ## Usage
 
-Open an existing `.base` file. If it has saved views, their names appear under the toolbar. Select one name to change the active view. Add and configure views through the native view menu, then use the strip for daily navigation.
-
-For example, give a task Base three views: All tasks, In progress and Done. Set their filters in Bases first. The strip then provides direct access to those same views, with their existing configuration. A view supplied by another plugin keeps its own renderer; this plugin adds no view types.
+For example, give a task Base three views: All tasks, In progress and Done. Set their filters in Bases first. The strip then provides direct access to those same views, with their existing configuration.
 
 <img src="https://raw.githubusercontent.com/theluckystrike/bases-view-tabs/HEAD/docs/bases-view-tabs.gif" alt="Switching from All tasks to In progress and Done changes the task rows" width="720">
 
@@ -73,6 +71,10 @@ Settings are saved in this plugin's `data.json`. Base file and folder renames ma
 ### Does switching change my Base file?
 
 The plugin reads the Base and changes the selected view in the pane's workspace state. It never writes the Base text. Filters, formulas and view definitions remain managed by Bases. Disable the plugin and the original view menu continues to work.
+
+### Does a base open in its last view?
+
+Yes. Each base opens in the view that you selected last. The feature is free. A link to another view, such as `[[Tasks.base#Done]]`, still opens that view. A link to the first view looks like a plain open, so the last view replaces it. Turn off Remember the last view to keep the first view.
 
 ### Do embedded Bases get tabs?
 
@@ -97,6 +99,8 @@ Check that Bases is enabled and that you opened a `.base` file with named views.
 ## Payment, account and network
 
 The core features are free. Pro features need a GitHub Sponsors sponsorship of theluckystrike: $5 a month or more, or $15 once. A total payment of $15 meets the payment requirement for Pro without further payment. Sign-in and the checks below still apply. Your notes stay readable and editable with or without Pro.
+
+[One payment turns on Pro in every NoteMods plugin](https://notemods.com/pro/).
 
 GitHub handles the payment. Sponsor at https://github.com/sponsors/theluckystrike?frequency=one-time&metadata_source=bases-view-tabs. You need no account for the free features. Pro needs the GitHub account that sponsors.
 

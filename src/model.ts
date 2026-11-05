@@ -1,11 +1,12 @@
 import { parseDocument } from 'yaml';
+import { normalizeLastViews, type LastViews } from './remember';
 
 export interface ViewInfo { name: string; type: string }
 export interface Appearance { pinned: boolean; icon: string }
 export interface TabInfo extends ViewInfo, Appearance { active: boolean }
-export interface TabSettings { wrap: boolean; appearances: Record<string, Appearance> }
+export interface TabSettings { wrap: boolean; rememberView: boolean; appearances: Record<string, Appearance>; lastViews: LastViews }
 export const ICONS = ['', 'table', 'list', 'calendar', 'columns-3', 'star', 'check-check', 'briefcase'] as const;
-export const DEFAULT_SETTINGS: TabSettings = { wrap: false, appearances: {} };
+export const DEFAULT_SETTINGS: TabSettings = { wrap: false, rememberView: true, appearances: {}, lastViews: {} };
 const object = (v: unknown): v is Record<string, unknown> => typeof v === 'object' && v !== null && !Array.isArray(v);
 export const preferenceKey = (path: string, name: string): string => JSON.stringify([path, name]);
 
@@ -19,7 +20,7 @@ export function normalizeSettings(raw: unknown): TabSettings {
 			appearances[key] = { pinned: value.pinned === true, icon: typeof value.icon === 'string' && ICONS.some((i) => i === value.icon) ? value.icon : '' };
 		} catch { /* Corrupt preferences do not affect the free tabs. */ }
 	}
-	return { wrap: saved.wrap === true, appearances };
+	return { wrap: saved.wrap === true, rememberView: saved.rememberView !== false, appearances, lastViews: normalizeLastViews(saved.lastViews) };
 }
 
 /** Read only. Invalid YAML or ambiguous names leave view selection to core Bases. */
