@@ -1,10 +1,11 @@
 {
 	"id": "bases-view-tabs",
 	"name": "Bases View Tabs",
-	"version": "1.3.0",
+	"version": "1.3.1",
 	"changes": [
 		"Each base opens in the view that you selected last. A link to a different view still opens that view.",
-		"Turn off Remember the last view in Settings to open the first view again. This feature is free."
+		"Turn off Remember the last view in Settings to open the first view again. This feature is free.",
+		"Fix: a link to a view no longer changes the view that the base opens in next time."
 	],
 	"tip": "Assign a hotkey to Focus the view tabs in the Hotkeys settings. Then press it and use the arrow keys to pick a view.",
 	"thanks": "Hi, I am Michael, a solo developer in Poland. Bases View Tabs is one of over 100 small plugins that I make. Thank you for using it with your Bases.",

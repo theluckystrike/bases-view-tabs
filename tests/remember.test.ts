@@ -86,9 +86,11 @@ describe('plugin restore and record', () => {
   const setViewState = vi.fn(async (next: typeof state) => { state = next; });
   const leaf = { view, isDeferred: false, getViewState: () => state, setViewState };
   vi.spyOn(app.workspace, 'getLeavesOfType').mockReturnValue([leaf] as never);
-  const settle = async () => { for (let i = 0; i < 5; i++) await new Promise((r) => setTimeout(r, 0)); };
+  const flush = async () => { for (let i = 0; i < 5; i++) await new Promise((r) => setTimeout(r, 0)); };
+  // The restore step waits OPEN_SETTLE_MS (150 ms) after a new open.
+  const settle = async () => { await new Promise((r) => setTimeout(r, 200)); await flush(); };
   return {
-   p, app, leaf, save, setViewState, settle,
+   p, app, leaf, save, setViewState, settle, flush,
    setView: (name: string) => { state = { ...state, state: { ...state.state, viewName: name } }; },
    setFile: (path: string) => { state = { ...state, state: { ...state.state, file: path } }; },
   };
@@ -105,6 +107,14 @@ describe('plugin restore and record', () => {
   p.trackOpens(); await settle(); p.trackOpens();
   expect(setViewState).not.toHaveBeenCalled();
   expect(save).not.toHaveBeenCalled();
+ });
+ it('keeps a link view that arrives just after the open, and does not store it', async () => {
+  const { p, setViewState, settle, flush, setView, save } = setup('All');
+  p.trackOpens(); await flush();
+  setView('Later'); p.trackOpens(); await settle(); p.trackOpens();
+  expect(setViewState).not.toHaveBeenCalled();
+  expect(save).not.toHaveBeenCalled();
+  expect(p.settings.lastViews).toEqual({ 'A.base': 'Done' });
  });
  it('restores one time per open, not on each scan', async () => {
   const { p, setViewState, settle, setView } = setup('All');

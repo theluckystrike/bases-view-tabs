@@ -1,5 +1,11 @@
 # bases-view-tabs
 
+## 1.3.1
+
+### Patch Changes
+
+- A link to a view no longer changes the view that the base opens in next time. Your selected view stays remembered.
+
 ## 1.3.0
 
 ### Minor Changes

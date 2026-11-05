@@ -11,6 +11,8 @@ import WHATS_NEW from './whats-new.json';
 
 /** One open of a .base file in a leaf. `view` is the last view seen in that leaf; `ready` is false until the restore step ends. */
 interface BaseOpen { path: string; view: string; ready: boolean }
+/** Time between a new open and the restore step. A link selects its view in about 10 ms (Obsidian 1.15.0). */
+const OPEN_SETTLE_MS = 150;
 
 /** The .base path and the selected view in the leaf state (`viewName` is the core Bases state key, see BRIEF.md). */
 function baseState(leaf: WorkspaceLeaf): { path: string; view: string } {
@@ -162,6 +164,10 @@ export default class BasesViewTabsPlugin extends Plugin {
  /** Selects the remembered view after a new open, when the open did not name another view. */
  async restoreView(leaf: WorkspaceLeaf, open: BaseOpen): Promise<void> {
   try {
+   // A link opens the base first and selects its view a few milliseconds later. Wait, so that the restore step
+   // does not replace the view of the link and the record step does not store it as a view that the user selected.
+   await new Promise((resolve) => window.setTimeout(resolve, OPEN_SETTLE_MS));
+   if (this.stopped || this.opens.get(leaf) !== open) return;
    const stored = this.settings.lastViews[open.path];
    const file = this.app.vault.getFileByPath(open.path);
    if (!this.settings.rememberView || !stored || !file) return;
