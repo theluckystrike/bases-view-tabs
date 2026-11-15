@@ -1,5 +1,11 @@
 # bases-view-tabs
 
+## 1.3.2
+
+### Patch Changes
+
+- The Sponsor button now opens the NoteMods one-time tier.
+
 ## 1.3.1
 
 ### Patch Changes
